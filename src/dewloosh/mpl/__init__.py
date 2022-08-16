@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from .parallel import *
+from .triplot import triplot
 
 __version__ = "0.0.1b"
 

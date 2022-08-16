@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from typing import Iterable
 
 import matplotlib.pyplot as plt
@@ -6,8 +7,9 @@ from matplotlib.patches import PathPatch
 
 import numpy as np
 
+__all__ = ['parallel']
 
-def parallel_plot_mpl(data, *args, labels=None, padding=0.05, color=None,
+def parallel(data, *args, labels=None, padding=0.05, color=None,
                       colors=None, lw=0.2, bezier=True, axis=0, figsize=None, 
                       title=None, **kwargs):
 

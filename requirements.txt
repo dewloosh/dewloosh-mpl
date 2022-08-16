@@ -1,3 +1,7 @@
 setuptools
 wheel
 matplotlib
+numpy
+dewloosh.core
+neumann
+polymesh

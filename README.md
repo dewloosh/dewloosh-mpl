@@ -1,2 +1,2 @@
-# dewloosh-mpl
-Domain specific tools using `matplotlib`.
+# **dewloosh.mpl** - Domain spceific data visualization with matplotlib
+

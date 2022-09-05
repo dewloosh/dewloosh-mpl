@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from typing import Callable, Iterable
 import numpy as np
 from functools import partial
 
@@ -11,18 +10,18 @@ from polymesh.tri.triang import triobj_to_mpl, get_triobj_data, triangulate
 from polymesh.tri.triutils import offset_tri
 from polymesh.utils import cells_coords, explode_mesh_data_bulk
 
-import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from matplotlib.collections import PatchCollection
 import matplotlib.tri as mpltri
 
+from .utils import get_fig_axes, decorate_ax
 
 __all__ = ['triplot']
 
 
 def triplot(triobj, *args, hinton=False, data=None, title=None,
-            label=None, fig=None, ax=None, axes=None, fig_kw:dict=None,
+            label=None, fig=None, ax=None, axes=None, fig_kw: dict = None,
             **kwargs):
     """
     Creates plots over triangulations using `matplotlib`.
@@ -65,7 +64,7 @@ def triplot(triobj, *args, hinton=False, data=None, title=None,
         'ylim' 
         'axis' 
         'suptitle'
-        
+
     fig_kw : dict, Optional
         If there is no figure instance provided, these parameters are 
         forwarded to the ``matplotlib.pyplot.figure`` call.
@@ -188,13 +187,13 @@ def triplot_geom(triobj, ax, *args, lw=0.5, marker='b-',
 
 def triplot_data(triobj, ax, data, *args, cmap='winter', fig=None,
                  ecolor='k', lw=0.1, title=None, suptitle=None, label=None,
-                 nlevels=None, refine=False, refiner=None, 
-                 subdiv=3, cbpad = "2%", cbsize="5%", cbpos='right', **kwargs):
+                 nlevels=None, refine=False, refiner=None,
+                 subdiv=3, cbpad="2%", cbsize="5%", cbpos='right', **kwargs):
     """
     Plots data over a triangulation using `matplotlib`. The provided data may be
     aligned with the points, or it can be defined over the cells. The shape of the
     data governs the behaviour of the plot.
-    
+
     """
 
     axobj = None
@@ -228,7 +227,7 @@ def triplot_data(triobj, ax, data, *args, cmap='winter', fig=None,
             axobj = ax.tricontourf(tri, data, levels=levels, cmap=cmap)
             ax.tricontour(tri, data, levels=levels)
         else:
-            axobj = ax.tripcolor(tri, data, cmap=cmap, 
+            axobj = ax.tripcolor(tri, data, cmap=cmap,
                                  edgecolors=ecolor, lw=lw)
 
     assert axobj is not None, "Failed to handle the provided data."
@@ -239,84 +238,3 @@ def triplot_data(triobj, ax, data, *args, cmap='winter', fig=None,
     decorate_ax(fig=fig, ax=ax, points=points, title=title,
                 suptitle=suptitle, label=label, **kwargs)
     return axobj
-
-
-def get_fig_axes(*args, data=None, fig=None, axes=None, shape=None,
-                 horizontal=False, ax=None, fig_kw=None, **kwargs):
-    if fig is not None:
-        if axes is not None:
-            return fig, axes
-        elif ax is not None:
-            return fig, (ax,)
-    else:
-        if fig_kw is None:
-            fig_kw = {}
-        if data is not None:
-            nD = 1 if len(data.shape) == 1 else data.shape[1]
-            if nD == 1:
-                try:
-                    aspect = kwargs.get('aspect', 'equal')
-                    args[0].set_aspect(aspect)
-                    ax = args[0]
-                except Exception:
-                    fig, ax = plt.subplots(**fig_kw)
-                return fig, (ax,)
-            if fig is None or axes is None:
-                if shape is not None:
-                    if isinstance(shape, int):
-                        shape = (shape, 1) if horizontal else (1, shape)
-                    assert nD == (shape[0] * shape[1]), \
-                        "Mismatch in shape and data."
-                else:
-                    shape = (nD, 1) if horizontal else (1, nD)
-                fig, axes = plt.subplots(*shape, **fig_kw)
-            if not isinstance(axes, Iterable):
-                axes = (axes,)
-            return fig, axes
-        else:
-            try:
-                aspect = kwargs.get('aspect', 'equal')
-                args[0].set_aspect(aspect)
-                ax = args[0]
-            except Exception:
-                fig, ax = plt.subplots(**fig_kw)
-            return fig, (ax,)
-    return None, None
-
-
-def decorate_ax(*args, fig=None, ax=None, aspect='equal', xlim=None,
-                ylim=None, axis='on', offset=0.05, points=None,
-                axfnc: Callable = None, title=None, suptitle=None,
-                label=None, **kwargs):
-    assert ax is not None, "A matplotlib Axes object must be provided with " \
-        "keyword argument 'ax'!"
-    if axfnc is not None:
-        try:
-            axfnc(ax)
-        except Exception:
-            raise RuntimeError('Something went wrong when calling axfnc.')
-    if xlim is None:
-        if points is not None:
-            xlim = points[:, 0].min(), points[:, 0].max()
-            if offset is not None:
-                dx = np.abs(xlim[1] - xlim[0])
-                xlim = xlim[0] - offset*dx, xlim[1] + offset*dx
-    if ylim is None:
-        if points is not None:
-            ylim = points[:, 1].min(), points[:, 1].max()
-            if offset is not None:
-                dx = np.abs(ylim[1] - ylim[0])
-                ylim = ylim[0] - offset*dx, ylim[1] + offset*dx
-    ax.set_aspect(aspect)
-    ax.axis(axis)
-    if xlim is not None:
-        ax.set_xlim(*xlim)
-    if ylim is not None:
-        ax.set_ylim(*ylim)
-    if title is not None:
-        ax.set_title(title)
-    if label is not None:
-        ax.set_xlabel(label)
-    if fig is not None and suptitle is not None:
-        fig.suptitle(suptitle)
-    return ax

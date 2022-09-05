@@ -9,9 +9,10 @@ import numpy as np
 
 __all__ = ['parallel']
 
+
 def parallel(data, *args, labels=None, padding=0.05, color=None,
-                      colors=None, lw=0.2, bezier=True, axis=0, figsize=None, 
-                      title=None, **kwargs):
+             colors=None, lw=0.2, bezier=True, axis=0, figsize=None,
+             title=None, **kwargs):
 
     if isinstance(data, dict):
         if labels is None:
@@ -25,7 +26,7 @@ def parallel(data, *args, labels=None, padding=0.05, color=None,
         ys = np.dstack(data)[0]
     else:
         raise TypeError('Invalid data type!')
-    
+
     ynames = labels
     N, nY = ys.shape
 
@@ -77,9 +78,11 @@ def parallel(data, *args, labels=None, padding=0.05, color=None,
             # x-coordinate of the control vertices: at each integer (for the axes) and two inbetween
             # y-coordinate: repeat every point three times, except the first and last only twice
             verts = list(zip([x for x in np.linspace(0, len(ys) - 1, len(ys) * 3 - 2, endpoint=True)],
-                            np.repeat(zs[j, :], 3)[1:-1]))
+                             np.repeat(zs[j, :], 3)[1:-1]))
             # for x,y in verts: host.plot(x, y, 'go') # to show the control points of the beziers
-            codes = [Path.MOVETO] + [Path.CURVE4 for _ in range(len(verts) - 1)]
+            codes = [Path.MOVETO] + \
+                [Path.CURVE4 for _ in range(len(verts) - 1)]
             path = Path(verts, codes)
-            patch = PathPatch(path, facecolor='none', lw=lw, edgecolor=colors[j])
+            patch = PathPatch(path, facecolor='none',
+                              lw=lw, edgecolor=colors[j])
             host.add_patch(patch)

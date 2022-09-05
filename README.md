@@ -35,4 +35,4 @@ Once the enviroment is created, activate it via typing
 
 ## **License**
 
-This package is licensed under the MIT license.
+Copyright 2022 Bence Balogh, under [the MIT license](https://github.com/dewloosh/latexdocs/blob/master/LICENSE).

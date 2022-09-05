@@ -11,3 +11,4 @@ memory_profiler
 matplotlib
 ipython
 dewloosh.mpl
+pyvista

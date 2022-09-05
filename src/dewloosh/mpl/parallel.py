@@ -10,9 +10,49 @@ import numpy as np
 __all__ = ['parallel']
 
 
-def parallel(data, *args, labels=None, padding=0.05, color=None,
-             colors=None, lw=0.2, bezier=True, axis=0, figsize=None,
+def parallel(data, *args, labels=None, padding=0.05,
+             colors=None, lw=0.2, bezier=True, figsize=None,
              title=None, **kwargs):
+    """
+    Parameters
+    ----------
+    data : list of arrays
+        A list of numpy.ndarray for each column. Each array is 1d with a length of N,
+        where N is the number of data records (the number of lines).
+        
+    labels : Iterable, Optinal
+        Labels for the columns. If provided, it must have the same length as `data`.
+        
+    padding : float, Optional
+        Controls the padding around the plot.
+        
+    colors : list of float, Optional
+        A value for each record. Default is None.
+        
+    lw : float, Optional
+        Linewidth.
+        
+    bezier : bool, Optional
+        If True, bezier curves are created instead of a linear polinomials. 
+        Default is True.
+    
+    figsize : tuple, Optional
+        A tuple to control the size of the figure. Default is None.
+        
+    title : str, Optional
+        The title of the figure.
+    
+    Example
+    -------
+    
+    >>> from dewloosh.mpl import parallel
+    >>> colors = np.random.rand(150, 3)
+    >>> labels = [str(i) for i in range(10)]
+    >>> values = [np.random.rand(150) for i in range(10)]
+    >>> parallel(values, labels=labels, padding=0.05, lw=0.2,
+    >>>         colors=colors, title='Parallel Plot with Random Data')
+    
+    """
 
     if isinstance(data, dict):
         if labels is None:

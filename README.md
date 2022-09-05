@@ -1,8 +1,8 @@
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/dewloosh/PolyMesh/main?labpath=notebooks%5Cgrid.ipynb)
-[![CircleCI](https://circleci.com/gh/dewloosh/PolyMesh.svg?style=shield)](https://circleci.com/gh/dewloosh/PolyMesh) 
-[![Documentation Status](https://readthedocs.org/projects/polymesh/badge/?version=latest)](https://polymesh.readthedocs.io/en/latest/?badge=latest) 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/dewloosh/dewloosh-mpl/main?labpath=notebooks%5Cbasic.ipynb)
+[![CircleCI](https://circleci.com/gh/dewloosh/dewloosh-mpl.svg?style=shield)](https://circleci.com/gh/dewloosh/dewloosh-mpl) 
+[![Documentation Status](https://readthedocs.org/projects/dewloosh-mpl/badge/?version=latest)](https://dewloosh-mpl.readthedocs.io/en/latest/?badge=latest) 
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PyPI](https://badge.fury.io/py/PolyMesh.svg)](https://pypi.org/project/PolyMesh) 
+[![PyPI](https://badge.fury.io/py/dewloosh-mpl.svg)](https://pypi.org/project/dewloosh-mpl) 
 
 # **dewloosh.mpl** - Domain spceific data visualization with matplotlib
 

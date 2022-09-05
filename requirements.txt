@@ -4,4 +4,3 @@ matplotlib
 numpy
 dewloosh.core
 neumann
-pyvista

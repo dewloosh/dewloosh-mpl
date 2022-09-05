@@ -12,7 +12,7 @@ to other dewloosh projects.
 
 ## **Documentation**
 
-Click [here](https:/dewloosh-mpl.readthedocs.io/en/latest/) to read the documentation.
+Click [here](https://dewloosh-mpl.readthedocs.io/en/latest/) to read the documentation.
 
 ## **Installation**
 This is optional, but we suggest you to create a dedicated virtual enviroment at all times to avoid conflicts with your other projects. Create a folder, open a command shell in that folder and use the following command

@@ -4,3 +4,5 @@ matplotlib
 numpy
 dewloosh.core
 neumann
+polymesh
+pyvista

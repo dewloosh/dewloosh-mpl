@@ -6,4 +6,7 @@ API Reference
 
 .. automodule:: dewloosh.mpl.parallel
     :members: 
+
+.. automodule:: dewloosh.mpl.aligned_parallel
+    :members: 
     

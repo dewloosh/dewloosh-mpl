@@ -187,7 +187,7 @@ def triplot_geom(triobj, ax, *args, lw=0.5, marker='b-',
 
 def triplot_data(triobj, ax, data, *args, cmap='winter', fig=None,
                  ecolor='k', lw=0.1, title=None, suptitle=None, label=None,
-                 nlevels=None, refine=False, refiner=None,
+                 nlevels=None, refine=False, refiner=None, colorbar=True,
                  subdiv=3, cbpad="2%", cbsize="5%", cbpos='right', **kwargs):
     """
     Plots data over a triangulation using `matplotlib`. The provided data may be
@@ -231,9 +231,10 @@ def triplot_data(triobj, ax, data, *args, cmap='winter', fig=None,
                                  edgecolors=ecolor, lw=lw)
 
     assert axobj is not None, "Failed to handle the provided data."
-    divider = make_axes_locatable(ax)
-    cax = divider.append_axes(cbpos, size=cbsize, pad=cbpad)
-    fig.colorbar(axobj, cax=cax)
+    if colorbar:
+        divider = make_axes_locatable(ax)
+        cax = divider.append_axes(cbpos, size=cbsize, pad=cbpad)
+        fig.colorbar(axobj, cax=cax)
 
     decorate_ax(fig=fig, ax=ax, points=points, title=title,
                 suptitle=suptitle, label=label, **kwargs)

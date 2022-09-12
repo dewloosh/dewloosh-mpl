@@ -2,6 +2,6 @@
 from .parallel import *
 from .triplot import *
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 
 __description__ = "Domain spceific data visualization with matplotlib."

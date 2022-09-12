@@ -143,7 +143,8 @@ def parallel(data, *args, labels=None, padding=0.05,
 def aligned_parallel(data, datapos, *args, yticks=None, labels=None,
                      sharelimits=False, texlabels=None, xticksrotation=0,
                      suptitle=None, slider=False, slider_label=None, 
-                     hlines=None, vlines=None, y=None, **kwargs):
+                     hlines=None, vlines=None, y=None, xoffset=0.0,
+                     yoffset=0.0, **kwargs):
     """
     Parameters
     ----------
@@ -195,7 +196,13 @@ def aligned_parallel(data, datapos, *args, yticks=None, labels=None,
     y : float or int, Optional
         Value for the vertical axis. Default is the average of the limits
         of the vertical axis (0.5*(datapos[0] + datapos[-1])).
+    
+    xoffset : float, Optional
+        Margin of the plot in the vertical direction. Default is 0.
         
+    yoffset : float, Optional
+        Margin of the plot in the horizontal direction. Default is 0.
+    
     **kwargs : dict, Optional
         Extra keyword arguments are forwarded to the creator of the matplotlib figure.
         Default is None.
@@ -325,9 +332,9 @@ def aligned_parallel(data, datapos, *args, yticks=None, labels=None,
             if 'hline' in plotdata[axkey]:
                 plotdata[axkey]['hline'].set_ydata(y)
             v_at_y = _approx_at_y(y, axkey)
-            plotdata[axkey]['text'].update({'visible': True,
-                                            'x': v_at_y, 'y': y,
-                                            'text': str_sig(v_at_y)})
+            txtparams = {'visible': True, 'x': v_at_y, 
+                         'y': y, 'text': str_sig(v_at_y, sig=4)}
+            plotdata[axkey]['text'].update(txtparams)
         fig.canvas.draw_idle()
 
     def _update_slider(y=None):
@@ -335,9 +342,8 @@ def aligned_parallel(data, datapos, *args, yticks=None, labels=None,
             y = slider.val
         _set_yval(y)
         
-    def _set_xlim(axs: mpl.axes, vmin: float, vmax: float,
-                  offset=0.2, **kwargs):
-        voffset = (vmax - vmin) * offset
+    def _set_xlim(axs: mpl.axes, vmin: float, vmax: float):
+        voffset = (vmax - vmin) * xoffset
         if abs(vmin - vmax) > 1e-7:
             axs.set_xlim(vmin - voffset, vmax + voffset)
         xticks = [vmin, vmax]
@@ -346,9 +352,8 @@ def aligned_parallel(data, datapos, *args, yticks=None, labels=None,
         axs.set_xticklabels([str_sig(val, sig=3) for val in xticks],
                             rotation=rotation)
 
-    def _set_ylim(axs: mpl.axes, vmin: float, vmax: float,
-                  offset=0.1, **kwargs):
-        voffset = (vmax - vmin)*offset
+    def _set_ylim(axs: mpl.axes, vmin: float, vmax: float):
+        voffset = (vmax - vmin) * yoffset
         axs.set_ylim(vmin - voffset, vmax + voffset)
         
     # plot axes

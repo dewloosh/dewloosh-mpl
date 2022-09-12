@@ -17,6 +17,7 @@ import matplotlib.tri as mpltri
 
 from .utils import get_fig_axes, decorate_ax
 
+
 __all__ = ['triplot']
 
 

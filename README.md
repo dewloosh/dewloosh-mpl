@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI](https://badge.fury.io/py/dewloosh-mpl.svg)](https://pypi.org/project/dewloosh-mpl) 
 
-# **dewloosh.mpl** - Domain spceific data visualization with matplotlib
+# **dewloosh.mpl** - Domain specific data visualization with Matplotlib
 
 This a lightweight library serving as a place to gather code snippets for
 working with matplotlib. The uses cases are usually domain specific, likely to be related

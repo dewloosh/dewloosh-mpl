@@ -24,7 +24,7 @@ TColor = TypeVar('TColor', str, TRealVector)
 
 def parallel(data, *args, labels=None, padding=0.05,
              colors=None, lw=0.2, bezier=True, figsize=None,
-             title=None, **kwargs):
+             title=None, ranges=None, return_figure=True, **kwargs):
     """
     Parameters
     ----------
@@ -36,7 +36,7 @@ def parallel(data, *args, labels=None, padding=0.05,
         Labels for the columns. If provided, it must have the same length as `data`.
 
     padding : float, Optional
-        Controls the padding around the plot.
+        Controls the padding around the axes.
 
     colors : list of float, Optional
         A value for each record. Default is None.
@@ -53,6 +53,14 @@ def parallel(data, *args, labels=None, padding=0.05,
 
     title : str, Optional
         The title of the figure.
+        
+    ranges : list of list, Optional
+        Ranges of the axes. If not provided, it is inferred from
+        the input values, but this may result in an error.
+        Default is False.
+        
+    return_figure : bool, Optional
+        If True, the figure is returned. Default is False.
 
     Example
     -------
@@ -62,7 +70,7 @@ def parallel(data, *args, labels=None, padding=0.05,
     >>> labels = [str(i) for i in range(10)]
     >>> values = [np.random.rand(150) for i in range(10)]
     >>> parallel(values, labels=labels, padding=0.05, lw=0.2,
-    >>>         colors=colors, title='Parallel Plot with Random Data')
+    >>>          colors=colors, title='Parallel Plot with Random Data')
 
     """
 
@@ -82,14 +90,25 @@ def parallel(data, *args, labels=None, padding=0.05,
     ynames = labels
     N, nY = ys.shape
 
-    if colors is not None:
-        pass
-
     figsize = (7.5, 3) if figsize is None else figsize
     fig, host = plt.subplots(figsize=figsize)
 
-    ymins = ys.min(axis=0)
-    ymaxs = ys.max(axis=0)
+    if ranges is None:
+        ymins = ys.min(axis=0)
+        ymaxs = ys.max(axis=0)
+        ranges = np.hstack((ymins, ymaxs))
+    else:
+        ranges = np.array(ranges)
+    # make sure that upper and lower ranges are not equal
+    for i in range(nY):
+        rmin, rmax = ranges[i]
+        if abs(rmin - rmax) < 1e-12:
+            rmin -= 1.0
+            rmax += 1.0
+            ranges[i] = [rmin, rmax]
+    ymins = ranges[:, 0]
+    ymaxs = ranges[:, 1]
+    
     dys = ymaxs - ymins
     ymins -= dys * padding
     ymaxs += dys * padding
@@ -138,6 +157,9 @@ def parallel(data, *args, labels=None, padding=0.05,
             patch = PathPatch(path, facecolor='none',
                               lw=lw, edgecolor=colors[j])
             host.add_patch(patch)
+    
+    if return_figure:
+        return fig
 
 
 def aligned_parallel(data, datapos, *args, yticks=None, labels=None,

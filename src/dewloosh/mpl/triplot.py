@@ -235,7 +235,10 @@ def triplot_data(triobj, ax, data, *args, cmap='winter', fig=None,
     if colorbar:
         divider = make_axes_locatable(ax)
         cax = divider.append_axes(cbpos, size=cbsize, pad=cbpad)
-        fig.colorbar(axobj, cax=cax)
+        cbar = fig.colorbar(axobj, cax=cax)
+        dmin, dmax = minmax(data)
+        cbar.ax.set_yticks([dmin, dmax])
+        cbar.ax.set_yticklabels(["{:4.2f}".format(i) for i in [dmin, dmax]]) 
 
     decorate_ax(fig=fig, ax=ax, points=points, title=title,
                 suptitle=suptitle, label=label, **kwargs)

@@ -1,8 +1,5 @@
 setuptools
 wheel
+linkeddeepdict>=0.0.1
+polymesh>=0.0.9
 matplotlib
-numpy
-dewloosh.core
-neumann
-polymesh
-pyvista

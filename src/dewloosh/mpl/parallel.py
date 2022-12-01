@@ -12,6 +12,7 @@ import numpy as np
 from linkeddeepdict import LinkedDeepDict
 from dewloosh.core.tools import float_to_str_sig as str_sig
 
+
 __all__ = ['parallel', 'aligned_parallel']
 
 

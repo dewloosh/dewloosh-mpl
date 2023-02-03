@@ -1,13 +1,12 @@
-# -*- coding: utf-8 -*-
 import numpy as np
 from functools import partial
 
 from dewloosh.core.typing import issequence
 
-from neumann.array import minmax
+from neumann.utils import minmax
 
-from polymesh.tri.triang import triobj_to_mpl, get_triobj_data, triangulate
-from polymesh.tri.triutils import offset_tri
+from polymesh.triang import triobj_to_mpl, get_triobj_data, triangulate
+from polymesh.utils.tri import offset_tri
 from polymesh.utils import cells_coords, explode_mesh_data_bulk
 
 from matplotlib.patches import Polygon
@@ -32,29 +31,22 @@ def triplot(triobj, *args, hinton=False, data=None, title=None,
     triobj : TriMeshLike
         This is either a tuple of mesh data (coordinates and topology)
         or a triangulation object understood by `dewloosh.tri.trimesh.triangulate`.
-
     hinton : bool, Optional
         Creates a hinton-like plot. Only wors if the provided data is along
         the cells. Default is False.
-
     data : `numpy.ndarray`, Optional 
         Some data to plot as an 1d or 2d numpy array. Default is None.
-
     title : str, Optional
         Title of the plot. See `matplotlib` for further details.
         Default is None.
-
     label : str, Optional
         Title of the plot. See `matplotlib` for further details.
         Default is None.
-
     fig : `matplotlib.Figure`, Optional
         A `matplotlib` figure to plot on. Default is None.
-
     ax : `matplotlib.axes.Axes` or a collection of it, Optional.
         A `matplotlib` axis, or a collection of such objects to plot on. 
         Default is None.
-
     kwargs : dict, Optional
         The following keyword arguments are understood and forwarded to the 
         appropriate function in `matplotlib`:
@@ -194,7 +186,6 @@ def triplot_data(triobj, ax, data, *args, cmap='winter', fig=None,
     Plots data over a triangulation using `matplotlib`. The provided data may be
     aligned with the points, or it can be defined over the cells. The shape of the
     data governs the behaviour of the plot.
-
     """
 
     axobj = None

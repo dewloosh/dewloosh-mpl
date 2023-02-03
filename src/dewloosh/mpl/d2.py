@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import matplotlib.tri as tri
 import matplotlib.pyplot as plt
 import numpy as np
 
-from neumann.array import minmax
+from neumann.utils import minmax
 
 
 def plot_triangles_2d(coords, triangles, data):

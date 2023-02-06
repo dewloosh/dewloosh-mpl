@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 import unittest
 from polymesh.grid import grid
-from polymesh.topo.tr import Q4_to_T3
-from polymesh.tri.trimesh import triangulate
+from polymesh.utils.topology.tr import Q4_to_T3
+from polymesh.trimesh import triangulate
 from polymesh.recipes import circular_disk
 from dewloosh.mpl import triplot
 import numpy as np

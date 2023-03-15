@@ -1,5 +1,5 @@
-setuptools
-wheel
+setuptools>=65.5.1 # pinned by Snyk to avoid a vulnerability
+wheel>=0.38.0 # pinned by Snyk to avoid a vulnerability
 linkeddeepdict>=0.0.1
-polymesh>=0.0.9
+polymesh>=0.0.14
 matplotlib
